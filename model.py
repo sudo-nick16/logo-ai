@@ -1,9 +1,7 @@
 import pandas as pd
-import os
 import cv2
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from keras.preprocessing.image import ImageDataGenerator
@@ -17,11 +15,11 @@ num_classes = 2
 
 img_width = 100
 img_height = 100
-channels = 3 
+channels = 1
 
 images = []
 for path in image_paths:
-    image = cv2.imread(path, channels)
+    image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
     images.append(image)
 images = np.array(images)
 images = images
@@ -39,7 +37,7 @@ model = Sequential([
     Conv2D(64, (3, 3), activation='relu'),
     Flatten(),
     Dense(64, activation='relu'),
-    Dense(num_classes, activation='softmax')  # Output layer for binary classification
+    Dense(num_classes, activation='softmax')
 ])
 
 # Step 4: Compile Model
@@ -62,19 +60,19 @@ X_train = X_train.reshape(n_samples, img_height, img_width, channels)
 datagen.fit(X_train)
 
 # Step 6: Train Model
-n_epochs = 5
-n_batches = 32
+n_epochs = 10
+n_batches = 128
 
 history = model.fit(
         X_train, y_train,
         batch_size=n_batches,
         epochs=n_epochs,
         validation_data=(X_test, y_test),
-    )
+)
 
 # Step 7: Evaluate Model
 evaluation = model.evaluate(X_test, y_test)
 print("Loss:", evaluation[0])
 print("Validation Accuracy:", evaluation[1])
 
-model.save("model.h5")
+model.save("model.keras")
