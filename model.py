@@ -32,8 +32,13 @@ X_train, X_test, y_train, y_test = train_test_split(images, labels_encoded, test
 model = Sequential([
     Conv2D(32, (3, 3), activation='relu', input_shape=(img_height, img_width, channels)),
     MaxPooling2D((2, 2)),
+
     Conv2D(64, (3, 3), activation='relu'),
     MaxPooling2D((2, 2)),
+
+    Conv2D(64, (3, 3), activation='relu'),
+    MaxPooling2D((2, 2)),
+
     Conv2D(64, (3, 3), activation='relu'),
     Flatten(),
     Dense(64, activation='relu'),
@@ -60,11 +65,13 @@ X_train = X_train.reshape(n_samples, img_height, img_width, channels)
 datagen.fit(X_train)
 
 # Step 6: Train Model
-n_epochs = 10
-n_batches = 128
+n_epochs = 500
+n_batches = 5
+
+train_generator = datagen.flow(X_train, y_train, batch_size=n_batches)
 
 history = model.fit(
-        X_train, y_train,
+        train_generator,
         batch_size=n_batches,
         epochs=n_epochs,
         validation_data=(X_test, y_test),
@@ -75,4 +82,5 @@ evaluation = model.evaluate(X_test, y_test)
 print("Loss:", evaluation[0])
 print("Validation Accuracy:", evaluation[1])
 
+model.summary()
 model.save("model.keras")
