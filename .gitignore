@@ -4,3 +4,4 @@ venv
 *.keras
 dataset/test
 dataset/train
+dataset/dataset.csv
