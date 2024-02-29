@@ -7,6 +7,8 @@ virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 python model.py
+python gen_train_set.py
+python gen_test_set.py
 python test.py
 ```
 

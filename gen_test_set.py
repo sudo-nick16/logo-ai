@@ -2,17 +2,23 @@ import cv2
 import numpy as np
 import os
 
+def assert_dir(dir_name):
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+
 bg_images_path = "dataset/bg_images"
 logos_path= "dataset/logos"
+
 test_dataset_path = "dataset/test"
+assert_dir(test_dataset_path)
 
 logos = []
-
 for logo in os.listdir(logos_path):
     logos.append({
         "name": logo.split(".")[0],
         "logo": cv2.imread(os.path.join(logos_path, logo), cv2.IMREAD_UNCHANGED)
     })
+
 
 for i, image in enumerate(os.listdir(bg_images_path)):
     img = cv2.imread(os.path.join(bg_images_path, image), cv2.IMREAD_UNCHANGED)

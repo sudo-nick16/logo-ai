@@ -2,4 +2,5 @@ venv
 *.h5
 *.pickle
 *.keras
-images/
+dataset/test
+dataset/train

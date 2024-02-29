@@ -2,8 +2,14 @@ import os
 import cv2
 import pandas as pd
 
+def assert_dir(dir_name):
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+
 images_path = "images"
+
 train_set_path = "dataset/train"
+assert_dir(train_set_path)
 
 data = []
 
