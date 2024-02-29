@@ -11,7 +11,7 @@ df = pd.read_csv(csv_path)
 image_paths = df['image_path'].tolist()
 labels = df['label'].values
 labels_encoded = df['label_encoded'].values
-num_classes = 2
+num_classes = len(pd.unique(labels_encoded))
 
 img_width = 100
 img_height = 100
@@ -23,7 +23,6 @@ for path in image_paths:
     images.append(image)
 images = np.array(images)
 images = images
-
 
 # Step 2: Split Data
 X_train, X_test, y_train, y_test = train_test_split(images, labels_encoded, test_size=0.3, random_state=42)
