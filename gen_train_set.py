@@ -12,6 +12,7 @@ for i, dir in enumerate(os.listdir(images_path)):
     label = label.lower().replace(" ", "_")
     dir = os.path.join(images_path, dir)
     file_index = 0
+
     if os.path.isdir(dir):
         for img_name in os.listdir(dir):
             img_path = os.path.join(dir, img_name)

@@ -2,3 +2,4 @@ venv
 *.h5
 *.pickle
 *.keras
+images/
